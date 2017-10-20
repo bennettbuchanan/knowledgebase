@@ -1,0 +1,38 @@
+{
+  "name": "knowledge_base",
+  "version": "0.0.1",
+  "description": "knowledgebase application code base",
+  "main": "index.js",
+  "directories": {
+    "test": "mocha --recursive tests/unit"
+  },
+  "scripts": {
+    "test": "npm run test",
+    "lint": "./node_modules/.bin/eslint $(git ls-files '*.js')",
+    "api": "node api/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bennettbuchanan/knowledge_base.git"
+  },
+  "author": "Bennett Buchanan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bennettbuchanan/knowledge_base/issues"
+  },
+  "homepage": "https://github.com/bennettbuchanan/knowledge_base#readme",
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "mocha": "^4.0.1"
+  },
+  "dependencies": {
+    "async": "^2.5.0",
+    "express": "^4.16.1",
+    "mysql": "^2.15.0",
+    "werelogs": "github:scality/werelogs"
+  }
+}
