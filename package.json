@@ -3,11 +3,8 @@
   "version": "0.0.1",
   "description": "knowledgebase application code base",
   "main": "index.js",
-  "directories": {
-    "test": "mocha --recursive tests/unit"
-  },
   "scripts": {
-    "test": "npm run test",
+    "test": "mocha --recursive test/unit",
     "lint": "./node_modules/.bin/eslint $(git ls-files '*.js')",
     "api": "node api/app.js"
   },
