@@ -5,20 +5,25 @@ const logger = require('../../api/util/getLogger');
 const log = logger.newRequestLogger();
 
 describe('Database class', () => {
+    let db;
+
+    beforeEach(() => {
+        db = getDatabase();
+    });
+
+    afterEach(() => db.endConnection());
+
     it('should get instance of Database class', () => {
-        const db = getDatabase();
         assert.strictEqual(typeof db, 'object');
         assert.strictEqual(db.name, 'knowledgebase_test');
     });
 
     it('should run a SQL query', (done) => {
-        const db = getDatabase();
         db.query('SELECT * FROM user', log, (err, data) => {
             if (err) {
                 return done(err);
             }
             assert.deepStrictEqual(data, []);
-            db.endConnection();
             return done();
         });
     });
