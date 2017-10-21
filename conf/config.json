@@ -1,6 +1,6 @@
 {
     "log": {
-        "logLevel": "info",
-        "dumpLevel": "error"
+        "level": "info",
+        "dump": "error"
     }
 }
