@@ -4,7 +4,7 @@
   "description": "knowledgebase application code base",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive test/unit",
+    "test": "NODE_ENV=test && mysql -u root < ./sql/test_init.sql && node_modules/db-migrate/bin/db-migrate up --env test && mocha --recursive test && mysql -u root < ./sql/test_cleanup.sql",
     "lint": "./node_modules/.bin/eslint $(git ls-files '*.js')",
     "api": "node api/app.js"
   },
@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "async": "^2.5.0",
+    "db-migrate": "^0.10.0-beta.24",
+    "db-migrate-mysql": "^1.1.10",
     "express": "^4.16.1",
     "mysql": "^2.15.0",
     "werelogs": "github:scality/werelogs"

@@ -1,0 +1,13 @@
+machine:
+    node:
+        version: 6.9.5
+    environment:
+        NODE_ENV: test
+dependencies:
+    override:
+        - rm -rf node_modules
+        - yarn install
+test:
+    override:
+        - yarn lint
+        - yarn test
