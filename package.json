@@ -4,9 +4,17 @@
   "description": "knowledgebase application code base",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test && mysql -u root < ./sql/test_init.sql && node_modules/db-migrate/bin/db-migrate up --env test && mocha --recursive test && mysql -u root < ./sql/test_cleanup.sql",
-    "lint": "./node_modules/.bin/eslint $(git ls-files '*.js')",
-    "api": "node api/app.js"
+    "start": "NODE_ENV=prod node api/app.js",
+    "start:dev": "NODE_ENV=dev node api/app.js",
+    "start:test": "NODE_ENV=test node api/app.js",
+    "init": "mysql -u root < ./sql/init.sql",
+    "init:test": "mysql -u root < ./sql/test_init.sql",
+    "clean:test": "mysql -u root < ./sql/test_cleanup.sql",
+    "migrate:up": "node_modules/db-migrate/bin/db-migrate up --env test",
+    "test": "yarn init:test  && yarn test:unit && yarn test:functional ; yarn clean:test",
+    "test:unit": "NODE_ENV=test && yarn migrate:up && mocha --recursive test/unit",
+    "test:functional": "NODE_ENV=test && yarn migrate:up && mocha --recursive test/functional",
+    "lint": "./node_modules/.bin/eslint $(git ls-files '*.js')"
   },
   "repository": {
     "type": "git",
@@ -32,6 +40,7 @@
     "db-migrate-mysql": "^1.1.10",
     "express": "^4.16.1",
     "mysql": "^2.15.0",
+    "request": "^2.83.0",
     "werelogs": "github:scality/werelogs"
   }
 }
