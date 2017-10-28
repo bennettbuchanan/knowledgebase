@@ -27,7 +27,7 @@ wait_for_port() {
 
 export NODE_ENV=test
 
-yarn lint && yarn start:test > $CIRCLE_ARTIFACTS/server_test.txt & wait_for_port && yarn test
+yarn lint && yarn start_api:test > $CIRCLE_ARTIFACTS/server_test.txt & wait_for_port && yarn test
 
 kill $(lsof -t -i:$API_PORT)
 

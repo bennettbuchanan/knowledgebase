@@ -8,39 +8,56 @@ Learn and share software engineering skills in real life.
 
 Install dependencies:
 
-```
-$ yarn install
+```sh
+yarn install
 ```
 
 Start the mysql server:
 
-```
-$ mysql.server start
+```sh
+mysql.server start
 ```
 
-Add the database and tables:
+Initiate the development database:
 
+```sh
+yarn init
 ```
-$ yarn init
-$ yarn migrate:up
+
+Add tables to the database:
+
+```sh
+yarn migrate:up
 ```
 
 Start the API:
 
+```sh
+yarn start_api:dev
 ```
-$ yarn start:dev
+
+Build sources with webpack:
+
+```sh
+yarn build
+```
+
+Run the development server:
+
+```sh
+yarn start_web:dev
 ```
 
 ## Testing
 
 Start the API in testing mode:
 
-```
-$ yarn start:test
+```sh
+yarn start_api:test
 ```
 
 Run unit and functional tests:
 
-```
-$ yarn test
+```sh
+yarn test
 ```

@@ -1,12 +1,15 @@
 {
     extends: "airbnb",
-    "env": {
-        "node": true,
-        "mocha": true
+    env: {
+        node: true,
+        mocha: true,
+        browser: true
     },
     rules: {
         indent: ["error", 4],
         import/no-unresolved: [2, { commonjs: false }],
-        function-paren-newline: ["error", "never"]
+        function-paren-newline: ["error", "never"],
+        react/jsx-indent: [2, 4],
+        react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }]
     }
 }
