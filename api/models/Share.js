@@ -54,6 +54,18 @@ class Share extends Table {
         const query = `DELETE FROM share WHERE id=${this.primaryKey};`;
         return this.db.query(query, this.log, cb);
     }
+
+    getAllUsers(cb) {
+        this.log.debug('getting all users sharing a tech in database', {
+            method: 'Share::getAllUsers',
+        });
+        const query =
+            `SELECT id, first_name, last_name, email FROM user
+            WHERE id IN (SELECT user_id
+                         FROM share
+                         WHERE tech_id = ${this.techId});`;
+        return this.db.query(query, this.log, cb);
+    }
 }
 
 module.exports = Share;

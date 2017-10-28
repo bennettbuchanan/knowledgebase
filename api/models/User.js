@@ -49,9 +49,9 @@ class User extends Table {
             `INSERT INTO user (first_name,
                                last_name,
                                email)
-            VALUES            ('foo',
-                               'foo',
-                               'foo');`;
+            VALUES            ('${this.firstName}',
+                               '${this.lastName}',
+                               '${this.email}');`;
         return this.db.query(query, this.log, cb);
     }
 
@@ -86,14 +86,32 @@ class User extends Table {
      * @param {Function} cb - Callback function.
      * @return {undefined}
      */
-    learns(cb) {
+    learn(cb) {
         this.log.debug('getting all technologies in database', {
-            method: 'Learn::getAll',
+            method: 'User::learn',
         });
         const query =
             `SELECT name FROM tech
             WHERE id IN (SELECT tech_id
                          FROM learn
+                         WHERE user_id = ${this.primaryKey});`;
+        return this.db.query(query, this.log, cb);
+    }
+
+    /**
+     * Retrieve technologies a user is sharing.
+     * @param {Function} cb - Callback function.
+     * @return {undefined}
+     */
+    share(cb) {
+        this.log.debug('getting all technologies in database', {
+            method: 'User::shares',
+        });
+        // TODO: Update this to get the shares values.
+        const query =
+            `SELECT name FROM tech
+            WHERE id IN (SELECT tech_id
+                         FROM share
                          WHERE user_id = ${this.primaryKey});`;
         return this.db.query(query, this.log, cb);
     }

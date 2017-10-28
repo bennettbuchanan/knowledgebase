@@ -54,6 +54,18 @@ class Learn extends Table {
         const query = `DELETE FROM learn WHERE id=${this.primaryKey};`;
         return this.db.query(query, this.log, cb);
     }
+
+    getAllUsers(cb) {
+        this.log.debug('getting all users learning a tech in database', {
+            method: 'Learn::getAllUsers',
+        });
+        const query =
+            `SELECT id, first_name, last_name, email FROM user
+            WHERE id IN (SELECT user_id
+                         FROM learn
+                         WHERE tech_id = ${this.techId});`;
+        return this.db.query(query, this.log, cb);
+    }
 }
 
 module.exports = Learn;
