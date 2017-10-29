@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const Logger = require('./models/Logger');
 const users = require('./routes/users');
 const tech = require('./routes/tech');
@@ -7,6 +8,8 @@ const share = require('./routes/share');
 
 const app = express();
 const log = Logger.newRequestLogger();
+
+app.use(cors());
 
 users(app, log);
 tech(app, log);

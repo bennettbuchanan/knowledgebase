@@ -1,16 +1,29 @@
 function webpackConfig() {
     return {
-        entry: './index.js',
+        entry: [
+            './index.jsx',
+        ],
         output: {
             filename: './bundle.js',
         },
         module: {
             rules: [
                 {
-                    test: /.js$/,
+                    test: /.jsx$/,
                     use: [
                         {
                             loader: 'babel-loader',
+                            options: {
+                                cacheDirectory: true,
+                            },
+                        },
+                    ],
+                },
+                {
+                    test: /.css$/,
+                    use: [
+                        {
+                            loader: 'css-loader',
                             options: {
                                 cacheDirectory: true,
                             },
