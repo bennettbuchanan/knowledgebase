@@ -84,14 +84,14 @@ function users(app, log) {
         userModel.setPrimaryKey(req.params.id)
             .share((err, data) => {
                 if (err) {
-                    log.error('error getting learn entries', {
+                    log.error('error getting share entries', {
                         error: err,
                         params: req.params,
                     });
                     return res.status(500).send('Could not get learn. ' +
                         'Please try again later.');
                 }
-                log.info('got all learn entries');
+                log.info('got all share entries');
                 return res.send(data);
             });
     });

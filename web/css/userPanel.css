@@ -1,0 +1,51 @@
+.panel-body {
+    display: flex;
+}
+
+.user-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 15px;
+}
+
+div.user-name-section > h1 {
+    margin: 0px;
+    padding-right: 15px;
+}
+
+div.user-name-section > div {
+    display: flex;
+    align-self: center;
+}
+
+.user-preferences-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-preferences-section > div {
+    width: 50%;
+}
+
+.user-image {
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.user-name-section {
+    display: flex;
+    margin-top: 20px;
+}
+
+@media only screen and (max-width: 500px) {
+    .panel-body {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .user-preferences-section {
+        flex-direction: column;
+    }
+}

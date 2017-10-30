@@ -1,0 +1,71 @@
+import React, { Component } from 'react';
+import { Grid, Row, Col, Image, Panel, Button,
+    Glyphicon } from 'react-bootstrap/lib';
+import usersAPI from '../util/usersAPI';
+
+/**
+ * The user individual user panel which displays the user information.
+ */
+class User extends Component {
+    state = {
+        id: '',
+        learning: '',
+        sharing: '',
+        error: null,
+    }
+
+    setUserState(key) {
+        usersAPI[key](this.state.id, (err, data) => {
+            // TODO: Handle errors.
+            const tech = data.map(t => t.name);
+            const o = {};
+            o[key] = tech.join(', ');
+            this.setState(o);
+        })
+    }
+
+    componentDidMount() {
+        this.setUserState('learning');
+        this.setUserState('sharing');
+    }
+
+    render() {
+        const { id, username } = this.props;
+        this.state.id = id;
+
+        return (
+            <Panel>
+                <div>
+                    <Image src="/assets/thumbnail.png" className={'user-image'}
+                        circle responsive />
+                </div>
+                <div className={'user-content'}>
+                    <div className={'user-name-section'}>
+                        <h1>{username}</h1>
+                        <div>
+                            <Button bsSize="small">
+                                <i className="fa fa-commenting fa-lg"></i>
+                            </Button>
+                        </div>
+                    </div>
+                    <div className={'user-preferences-section'}>
+                    {this.state.learning && (
+                        <div>
+                            <h2>Learning</h2>
+                            <p>{this.state.learning}</p>
+                        </div>
+                    )}
+                    {this.state.sharing && (
+                        <div>
+                            <h2>Sharing</h2>
+                            <p>{this.state.sharing}</p>
+                        </div>
+                    )}
+                    </div>
+                </div>
+            </Panel>
+        );
+    }
+}
+
+export default User;

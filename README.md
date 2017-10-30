@@ -21,13 +21,13 @@ mysql.server start
 Initiate the development database:
 
 ```sh
-yarn init
+yarn init:dev
 ```
 
 Add tables to the database:
 
 ```sh
-yarn migrate:up
+yarn migrate_up:dev
 ```
 
 Start the API:
@@ -49,6 +49,12 @@ yarn start_web:dev
 ```
 
 ## Testing
+
+Start the mysql server:
+
+```sh
+mysql.server start
+```
 
 Start the API in testing mode:
 
