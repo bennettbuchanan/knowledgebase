@@ -15,9 +15,9 @@
     "migrate_up:dev": "node_modules/db-migrate/bin/db-migrate up --env dev",
     "migrate_up:test": "node_modules/db-migrate/bin/db-migrate up --env test",
     "build": "webpack --config ./web/webpack.config.js --context ./web --output-filename ./web/bundle.js",
-    "test": "yarn init:test  && yarn test:unit && yarn test:functional ; yarn clean:test",
-    "test:unit": "NODE_ENV=test && yarn migrate:up && mocha --recursive test/unit",
-    "test:functional": "NODE_ENV=test && yarn migrate:up && mocha --recursive test/functional",
+    "test": "NODE_ENV=test yarn init:test  && yarn test:unit && yarn test:functional ; yarn clean:test",
+    "test:unit": "NODE_ENV=test && yarn migrate_up:test && mocha --recursive test/unit",
+    "test:functional": "NODE_ENV=test && yarn migrate_up:test && mocha --recursive test/functional",
     "lint": "./node_modules/.bin/eslint $(git ls-files '*.js')"
   },
   "repository": {

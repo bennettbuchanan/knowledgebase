@@ -1,0 +1,51 @@
+#modal-button {
+    width: 100%;
+}
+
+#modal-alert {
+    margin-bottom: 0px;
+}
+
+#tag-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag-container {
+    padding: 3px 3px 6px 12px;
+    margin: 0px 10px 10px 0px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: white;
+    background-color: #337ab7;
+    background-image: none;
+    border: 1px;
+    border-radius: 4px;
+    border-color: #2e6da4;
+}
+
+#close-icon {
+    padding-top: 3px;
+    line-height: 0px;
+    font-size: 13px;
+    text-align: end;
+    font-weight: 500;
+    padding-right: 1px;
+    font-family: sans-serif;
+}
+
+#close-icon:hover {
+    cursor:pointer;
+}
+
+#tag-text {
+    padding-right: 9px;
+}
+
+#help-block {
+    overflow-wrap: break-word;
+}
+
+.modal-body {
+    padding-bottom: 0px;
+}

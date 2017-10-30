@@ -28,6 +28,20 @@ class Tech extends Table {
     }
 
     /**
+     * Get a tech entry from the table.
+     * @param {String} name - The name of the technology to get.
+     * @param {Function} cb - Callback function.
+     * @return {undefined}
+     */
+    get(name, cb) {
+        this.log.debug('getting tech from database', {
+            method: 'Tech::get',
+        });
+        const query = `SELECT id, name FROM tech WHERE (name='${name}');`;
+        return this.db.query(query, this.log, cb);
+    }
+
+    /**
      * Delete a tech entry from the table.
      * @param {Function} cb - Callback function.
      * @return {undefined}

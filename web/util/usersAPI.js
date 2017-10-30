@@ -1,27 +1,5 @@
-import request from 'superagent';
+import routeRequest from './routeRequest';
 import getAPIURL from './getAPIURL';
-import safeJSONParse from './safeJSONParse';
-
-/**
- * Make a request to the api with the given parameters.
- * @param {String} method - The HTTP method to use for the request.
- * @param {String} path - The API route path.
- * @param {Function} cd - The callback function.
- * @return {undefined}
- */
-function routeRequest(method, path, cb) {
-    request(method, `${getAPIURL()}${path}`)
-        .end((err, res) => {
-            if (err) {
-                return cb(err);
-            }
-            const { parseErr, data } = safeJSONParse(res.text);
-            if (parseErr) {
-                return cb(parseErr);
-            }
-            return cb(null, data);
-        });
-}
 
 const usersAPI = {
     /**
@@ -30,7 +8,20 @@ const usersAPI = {
      * @return {undefined}
      */
     getAllUsers(cb) {
-        return routeRequest('GET', '/users', cb);
+        return routeRequest('GET', `${getAPIURL()}/users`, {}, cb);
+    },
+
+    /**
+     * Create a user.
+     * @param {Object} query - The query object with the user information.
+     * @param {Object} query.firstName - The user's first name.
+     * @param {Object} query.lastName - The user's first last name.
+     * @param {Object} query.email - The user's email.
+     * @param {Function} cb - The callback function.
+     * @return {undefined}
+     */
+    createUser(query, cb) {
+        return routeRequest('POST', `${getAPIURL()}/users`, query, cb);
     },
 
     /**
@@ -40,7 +31,7 @@ const usersAPI = {
      * @return {undefined}
      */
     learning(id, cb) {
-        return routeRequest('GET', `/users/${id}/learn`, cb);
+        return routeRequest('GET', `${getAPIURL()}/users/${id}/learn`, {}, cb);
     },
 
     /**
@@ -50,7 +41,7 @@ const usersAPI = {
      * @return {undefined}
      */
     sharing(id, cb) {
-        return routeRequest('GET', `/users/${id}/share`, cb);
+        return routeRequest('GET', `${getAPIURL()}/users/${id}/share`, {}, cb);
     },
 };
 

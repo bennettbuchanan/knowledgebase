@@ -20,6 +20,23 @@ function tech(app, log) {
         });
     });
 
+    app.get('/tech/:name', (req, res) => {
+        log.debug('getting a named tech');
+        const { name } = req.params;
+        techModel.get(name, (err, data) => {
+            if (err) {
+                log.error('error getting named tech', {
+                    error: err,
+                    params: req.params,
+                });
+                return res.status(500).send('Could not get named technology. ' +
+                    'Please try again later.');
+            }
+            log.info('got named tech');
+            return res.send(data);
+        });
+    });
+
     app.post('/tech', (req, res) => {
         log.debug('creating new tech');
         const { name } = req.query;
