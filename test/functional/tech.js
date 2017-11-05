@@ -40,7 +40,7 @@ function tech() {
             return request.post(options, done);
         });
 
-        it('should return 400 error if using the technology name twice',
+        it('should return 400 status if using the technology name twice',
             (done) => {
                 const options = {
                     uri: 'http://localhost:3000/tech',
@@ -61,6 +61,22 @@ function tech() {
 
         it('should list all technologies', done =>
             request.get('http://localhost:3000/tech',
+                (err, response, body) => {
+                    if (err) {
+                        return done(err);
+                    }
+                    assert.strictEqual(response.statusCode, 200);
+                    const data = parseJSON(body);
+                    assert.strictEqual(data.length, 1);
+                    assert.deepStrictEqual(data[0], {
+                        id: 1,
+                        name: 'a',
+                    });
+                    return done();
+                }));
+
+        it('should get a named technology', done =>
+            request.get('http://localhost:3000/tech/a',
                 (err, response, body) => {
                     if (err) {
                         return done(err);

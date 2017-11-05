@@ -105,7 +105,7 @@ function user() {
                     return done();
                 }));
 
-        describe('Listing of what the user is learning or sharing', () => {
+        describe('List of what the user is learning or sharing', () => {
             const users = {
                 1: 'a',
                 2: 'b',

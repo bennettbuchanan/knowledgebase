@@ -29,8 +29,8 @@ div.user-name-section > div {
 }
 
 .user-image {
-    min-width: 100px;
-    min-height: 100px;
+    max-width: 75px;
+    max-height: 75px;
 }
 
 .user-name-section {

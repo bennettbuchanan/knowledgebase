@@ -65,5 +65,5 @@ yarn start_api:test
 Run unit and functional tests:
 
 ```sh
-yarn test
+NODE_ENV=test yarn test
 ```
