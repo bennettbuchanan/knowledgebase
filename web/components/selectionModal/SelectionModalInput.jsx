@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap/lib';
+import { FormGroup, ControlLabel, FormControl,
+    HelpBlock } from 'react-bootstrap/lib';
 
 /**
  * The input for how the user wants to participate.

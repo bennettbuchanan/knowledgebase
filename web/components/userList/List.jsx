@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import usersAPI from '../util/usersAPI';
+import usersAPI from '../../util/api/usersAPI';
 import User from './User.jsx';
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap/lib';
 
@@ -27,7 +27,11 @@ class List extends Component {
             <Row className="show-grid">
             {users.map(user =>
                 <Col sm={12} md={6} key={user.id}>
-                    <User id={user.id} username={user.first_name}/>
+                    <User
+                        id={user.id}
+                        username={user.first_name}
+                        errorHandler={this.props.errorHandler}
+                    />
                 </Col>)}
             </Row>
         )

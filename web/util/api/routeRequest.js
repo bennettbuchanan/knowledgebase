@@ -1,5 +1,5 @@
 import request from 'superagent';
-import safeJSONParse from './safeJSONParse';
+import safeJSONParse from '../safeJSONParse';
 
 /**
  * Make a request to the api with the given parameters.

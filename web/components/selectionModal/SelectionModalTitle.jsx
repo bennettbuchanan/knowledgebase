@@ -7,7 +7,7 @@ import { Modal } from 'react-bootstrap/lib';
 class SelectionModalTitle extends Component {
     render() {
         return (
-            <Modal.Title>How would you describe yourself?</Modal.Title>
+            <Modal.Title>{this.props.title}</Modal.Title>
         );
     }
 }
