@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Alert } from 'react-bootstrap/lib';
-import stackExchangeAPI from '../../util/stackExchangeAPI';
+import stackExchangeAPI from '../../util/api/stackExchangeAPI';
 import SelectionModalTitle from './SelectionModalTitle.jsx';
 import SelectionModalGroup from './SelectionModalGroup.jsx';
 import SelectionModalButton from './SelectionModalButton.jsx';
@@ -69,6 +69,9 @@ class SelectionModal extends Component {
                 backdrop={'static'}
                 bsSize={'large'}
             >
+                <Modal.Header>
+                    <SelectionModalTitle title={'Welcome!'}/>
+                </Modal.Header>
                 <Modal.Body>
                     <SelectionModalGroup
                         label={'What do you want to learn?'}

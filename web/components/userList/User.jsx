@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Image, Panel, Button,
     Glyphicon } from 'react-bootstrap/lib';
-import usersAPI from '../util/usersAPI';
+import usersAPI from '../../util/api/usersAPI';
 
 /**
- * The user individual user panel which displays the user information.
+ * The individual user panel which displays the user's information.
  */
 class User extends Component {
     state = {
@@ -16,7 +16,9 @@ class User extends Component {
 
     setUserState(key) {
         usersAPI[key](this.state.id, (err, data) => {
-            // TODO: Handle errors.
+            if (err) {
+                return this.props.errorHandler(err);
+            }
             const tech = data.map(t => t.name);
             const o = {};
             o[key] = tech.join(', ');

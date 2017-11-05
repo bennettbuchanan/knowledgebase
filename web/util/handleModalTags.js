@@ -1,7 +1,7 @@
 import async from 'async';
-import learnAPI from './learnAPI';
-import shareAPI from './shareAPI';
-import techAPI from './techAPI';
+import learnAPI from './api/learnAPI';
+import shareAPI from './api/shareAPI';
+import techAPI from './api/techAPI';
 
 function handleModalTags(tags, userId, action, cb) {
     const api = action === 'learn' ? learnAPI : shareAPI;

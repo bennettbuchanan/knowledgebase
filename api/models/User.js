@@ -107,7 +107,6 @@ class User extends Table {
         this.log.debug('getting all technologies in database', {
             method: 'User::shares',
         });
-        // TODO: Update this to get the shares values.
         const query =
             `SELECT name FROM tech
             WHERE id IN (SELECT tech_id
