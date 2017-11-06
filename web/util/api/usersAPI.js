@@ -3,6 +3,16 @@ import getAPIURL from './getAPIURL';
 
 const usersAPI = {
     /**
+     * Get a users using their email.
+     * @param {String} email - The user's email.
+     * @param {Function} cb - The callback function.
+     * @return {undefined}
+     */
+    getUser(email, cb) {
+        return routeRequest('GET', `${getAPIURL()}/users/${email}`, {}, cb);
+    },
+
+    /**
      * Get all users.
      * @param {Function} cb - The callback function.
      * @return {undefined}

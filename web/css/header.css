@@ -1,0 +1,15 @@
+#user-image {
+    width: 40px;
+}
+
+#dropdown-no-caret {
+    padding: 5px 0px;
+}
+
+.navbar-collapse.collapsing {
+    -webkit-transition: height 0.1s;
+    -moz-transition: height 0.1s;
+    -ms-transition: height 0.1s;
+    -o-transition: height 0.1s;
+    transition: height 0.1s;
+}

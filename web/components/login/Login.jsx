@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import { Grid, Jumbotron, Button } from 'react-bootstrap/lib';
 import Info from './Info.jsx';
-import SignUp from './SignUp.jsx';
 
 /**
  * Login view of the application.
  */
 class Login extends Component {
-    continueWithGoogle = () => {
-        this.props.onLogin();
-    }
-
     render() {
         return (
             <Grid>
                 <div id='login-content'>
                     <Info />
-                    <SignUp onSignUp={this.continueWithGoogle}/>
+                    <div id='google-authentication'>
+                        <Jumbotron>
+                            <h1>{'Sign Up'}</h1>
+                            <p>Join Knowledge Base today.</p>
+                            <div id="kb-signin-large"></div>
+                        </Jumbotron>
+                    </div>
                 </div>
             </Grid>
         );
