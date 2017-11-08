@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Spinner from 'react-spinkit';
 import { FormGroup, ControlLabel, FormControl,
     HelpBlock } from 'react-bootstrap/lib';
 
@@ -51,10 +52,19 @@ class SelectionModalInput extends Component {
 
     getModalContent() {
         const { value } = this.state;
+        const spinnerStyle = {
+            display: this.props.fetchingFromAPI ? 'block' : 'none',
+            marginLeft: '5px',
+        };
 
         return (
             <div>
-                <ControlLabel>{this.props.label}</ControlLabel>
+                <div style={{display: 'flex'}}>
+                    <ControlLabel>{this.props.label}</ControlLabel>
+                    <div style={spinnerStyle}>
+                        <Spinner name="circle" />
+                    </div>
+                </div>
                 <FormControl
                     type='text'
                     value={this.state.value}

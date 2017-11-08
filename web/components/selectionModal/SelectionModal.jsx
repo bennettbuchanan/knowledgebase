@@ -13,6 +13,8 @@ class SelectionModal extends Component {
         shareTags: [],
         learnTagsErrorMessage: '',
         shareTagsErrorMessage: '',
+        learnTagsLoading: false,
+        shareTagsLoading: false,
     };
 
     onPressKey = (tagCategory) => {
@@ -24,8 +26,11 @@ class SelectionModal extends Component {
 
     onAddTag = (text, tagCategory) => {
         let stateToSet = {};
+        stateToSet[`${tagCategory}Loading`] = true;
+        this.setState(stateToSet);
         const tag = text.replace(/ +/g, '-');
         stackExchangeAPI.getTag(tag, (err, tag) => {
+            stateToSet[`${tagCategory}Loading`] = false;
             if (err) {
                 stateToSet[`${tagCategory}ErrorMessage`] = `${err}`;
                 return this.setState(stateToSet);
@@ -85,6 +90,7 @@ class SelectionModal extends Component {
                         onPressEnterLearn={this.onAddTag}
                         onClickTag={this.onRemoveTag}
                         errorMessage={learnTagsErrorMessage}
+                        fetchingFromAPI={this.state.learnTagsLoading}
                     />
                     <SelectionModalGroup
                         label={'What do you want to share?'}
@@ -94,6 +100,7 @@ class SelectionModal extends Component {
                         onPressEnterLearn={this.onAddTag}
                         onClickTag={this.onRemoveTag}
                         errorMessage={shareTagsErrorMessage}
+                        fetchingFromAPI={this.state.shareTagsLoading}
                     />
                     {showAlert &&
                     <Alert bsStyle="warning" id='modal-alert'>

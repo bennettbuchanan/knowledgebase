@@ -32,6 +32,7 @@ class SelectionModalForm extends Component {
                     onPressEnter={this.props.onPressEnterLearn}
                     tags={this.props.tagList}
                     errorMessage={this.props.errorMessage}
+                    fetchingFromAPI={this.props.fetchingFromAPI}
                 />
             </FormGroup>
         )

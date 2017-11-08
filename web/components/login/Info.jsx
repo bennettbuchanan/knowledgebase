@@ -10,9 +10,9 @@ function Info() {
             <h2>{'Build software engineering skills with your community'}</h2>
             <div id='knowledgebase-info-list'>
                 <div id='icons'>
-                    <i className='fa fa-code' aria-hidden='true'></i>
-                    <i className='fa fa-lightbulb-o' aria-hidden='true'></i>
-                    <i className='fa fa-users' aria-hidden='true'></i>
+                    <span className="icon-code"></span>
+                    <span className="icon-lightbulb-o"></span>
+                    <span className="icon-group"></span>
                 </div>
                 <div id='list'>
                     <p>

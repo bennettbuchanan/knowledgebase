@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Spinner from 'react-spinkit';
 import { Alert, Grid } from 'react-bootstrap/lib';
 import Header from './Header.jsx';
 import List from './userList/List.jsx';
@@ -22,6 +23,7 @@ class App extends Component {
         errorMessage: '',
         profile: null,
         gapi: null,
+        loadingContent: true,
     }
 
     componentDidMount() {
@@ -52,7 +54,10 @@ class App extends Component {
     };
 
     loadGoogleAPI = (action) => gapi.load('auth2', () =>
-        gapi.auth2.init({ client_id: CLIENT_ID }).then(() => action(gapi)));
+        gapi.auth2.init({ client_id: CLIENT_ID }).then(() => {
+            action(gapi);
+            this.setState({ loadingContent: false });
+        }));
 
     renderButtons = (gapi) => {
         gapi.signin2.render('kb-signin-large', {
@@ -73,16 +78,18 @@ class App extends Component {
         });
         const googleAuth = gapi.auth2.getAuthInstance();
         googleAuth.attachClickHandler('collapsed-sign-in', {}, this.signIn,
-            this.errorHandler)
+            this.errorHandler);
     }
 
     handleModalData = (learnTags, shareTags) => {
+        this.setState({ loadingContent: true });
         const { profile } = this.state;
         handleModalData(learnTags, shareTags, profile, err => {
             if (err) {
                 this.setState({
                     error: err,
                     errorMessage: 'Please try again later.',
+                    loadingContent: false,
                 });
             }
             this.setState({ showModal: false });
@@ -112,33 +119,95 @@ class App extends Component {
         )
     }
 
+    onDoneLoading = () => {
+        this.setState({ loadingContent: false });
+    };
+
     getContent() {
         const { error, errorMessage, isUserSignedIn, isUserInDatabase,
-            showModal, profile } = this.state;
+            showModal, profile, loadingContent } = this.state;
 
         if (error) {
             return this.getError(error, errorMessage);
         }
+        // The login view condition
+        if (!isUserSignedIn) {
+            const loginStyle = {
+                display: loadingContent ? 'none' : 'block',
+            };
+            const spinnerStyle = {
+                display: loadingContent ? 'block' : 'none',
+            };
+            return (
+                <div>
+                    <div id='page-load'>
+                        <div id='spinner' style={spinnerStyle}>
+                            <Spinner name="circle" />
+                        </div>
+                    </div>
+                    <div style={loginStyle}>
+                        <Login errorHandler={this.errorHandler}/>
+                    </div>
+                </div>
+            )
+        }
+        // When a user first signs in, check if the user is in the database.
         if (isUserSignedIn && isUserInDatabase === null) {
-            usersAPI.getUser(profile.getEmail(), (err, data) => {
+            return usersAPI.getUser(profile.getEmail(), (err, data) => {
                 if (err) {
                     return this.setState({ error: err });
                 }
-                this.setState({ isUserInDatabase: data.length > 0 });
+                this.setState({
+                    error: err,
+                    isUserInDatabase: data.length > 0,
+                    loadingContent: false,
+                });
             });
         }
-        if (!isUserSignedIn) {
-            return (<Login/>)
-        }
         if (!isUserInDatabase && showModal) {
+            const modalStyle = {
+                display: loadingContent ? 'none' : 'block',
+            };
+            const spinnerStyle = {
+                display: loadingContent ? 'block' : 'none',
+            };
             return (
-                <SelectionModal
-                    onClose={this.handleModalData}
-                    profile={profile}
-                />
+                <div>
+                    <div id='page-load'>
+                        <div id='spinner' style={spinnerStyle}>
+                            <Spinner name="circle" />
+                        </div>
+                    </div>
+                    <div style={modalStyle}>
+                        <SelectionModal
+                            onClose={this.handleModalData}
+                            profile={profile}
+                        />
+                    </div>
+                </div>
             )
         }
-        return (<List errorHandler={this.errorHandler}/>)
+        const listStyle = {
+            display: loadingContent ? 'none' : 'block',
+        };
+        const spinnerStyle = {
+            display: loadingContent ? 'block' : 'none',
+        };
+        return (
+            <div>
+                <div id='page-load'>
+                    <div id='spinner' style={spinnerStyle}>
+                        <Spinner name="circle" />
+                    </div>
+                </div>
+                <div style={listStyle}>
+                    <List
+                        errorHandler={this.errorHandler}
+                        onDoneLoading={this.onDoneLoading}
+                    />
+                </div>
+            </div>
+        )
     }
 
     render() {
