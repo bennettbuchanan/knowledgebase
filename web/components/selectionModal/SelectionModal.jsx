@@ -58,6 +58,8 @@ class SelectionModal extends Component {
         return this.setState({ showAlert: true });
     }
 
+    getFirstName = () => this.props.profile.getName().split(' ')[0];
+
     render() {
         const { showModal, learnTags, shareTags, learnTagsErrorMessage,
             shareTagsErrorMessage, showAlert } = this.state;
@@ -70,7 +72,9 @@ class SelectionModal extends Component {
                 bsSize={'large'}
             >
                 <Modal.Header>
-                    <SelectionModalTitle title={'Welcome!'}/>
+                    <SelectionModalTitle
+                        title={`Welcome ${this.getFirstName()}!`}
+                    />
                 </Modal.Header>
                 <Modal.Body>
                     <SelectionModalGroup

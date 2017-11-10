@@ -20,6 +20,23 @@ function users(app, log) {
         });
     });
 
+    app.get('/users/:email', (req, res) => {
+        log.debug('getting user with a matching email');
+        const { email } = req.params;
+        userModel.get(email, (err, data) => {
+            if (err) {
+                log.error('error getting user by email', {
+                    error: err,
+                    params: req.params,
+                });
+                return res.status(500).send('Could not get user. Please ' +
+                    'try again later.');
+            }
+            log.info('got user by email');
+            return res.send(data);
+        });
+    });
+
     app.post('/users', (req, res) => {
         log.debug('creating new user');
         const { firstName, lastName, email } = req.query;

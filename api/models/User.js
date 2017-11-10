@@ -82,6 +82,20 @@ class User extends Table {
     }
 
     /**
+     * Retrieve a user by their email address.
+     * @param {String} email - The user's email.
+     * @param {Function} cb - Callback function.
+     * @return {undefined}
+     */
+    get(email, cb) {
+        this.log.debug('inserting user in database', {
+            method: 'User::getAll',
+        });
+        const query = `SELECT * FROM user WHERE email="${email}";`;
+        return this.db.query(query, this.log, cb);
+    }
+
+    /**
      * Retrieve technologies a user is learning.
      * @param {Function} cb - Callback function.
      * @return {undefined}

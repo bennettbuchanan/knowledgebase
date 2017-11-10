@@ -2,13 +2,12 @@ import async from 'async';
 import usersAPI from './api/usersAPI';
 import handleModalTags from './handleModalTags';
 
-function handleModalData(learnTags, shareTags, cb) {
-    // TODO: Remove once user information is attained through login.
-    const n = Math.floor(Math.random() * 100000);
+function handleModalData(learnTags, shareTags, googleProfile, cb) {
+    const name = googleProfile.getName().split(' ');
     const query = {
-        firstName: `test-user-${n}`,
-        lastName: `test-user-${n}`,
-        email: `test-user-email${n}@null.com`,
+        firstName: name[0],
+        lastName: name[1],
+        email: googleProfile.getEmail(),
     };
     let userId;
     return async.series([

@@ -65,6 +65,28 @@ function user() {
             });
         });
 
+        it('should get the user by their email', (done) => {
+            const options = {
+                uri: 'http://localhost:3000/users/a@null.com',
+            };
+            request.get(options, (err, response, body) => {
+                if (err) {
+                    return done(err);
+                }
+                assert.strictEqual(response.statusCode, 200);
+                const data = parseJSON(body);
+                assert.strictEqual(typeof data[0].timestamp, 'string');
+                delete data[0].timestamp;
+                assert.deepStrictEqual(data[0], {
+                    id: 1,
+                    first_name: 'a',
+                    last_name: 'b',
+                    email: 'a@null.com',
+                });
+                return done();
+            });
+        });
+
         it('should list all users', done =>
             request.get('http://localhost:3000/users',
                 (err, response, body) => {
