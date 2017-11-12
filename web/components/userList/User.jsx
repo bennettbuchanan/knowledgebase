@@ -14,7 +14,7 @@ class User extends Component {
         error: null,
     }
 
-    setUserState(key) {
+    setUserState(key, isLastUserToLoad) {
         usersAPI[key](this.state.id, (err, data) => {
             if (err) {
                 return this.props.errorHandler(err);
@@ -22,13 +22,16 @@ class User extends Component {
             const tech = data.map(t => t.name);
             const o = {};
             o[key] = tech.join(', ');
+            if (isLastUserToLoad) {
+                this.props.onDoneLoading();
+            }
             this.setState(o);
-        })
+        });
     }
 
     componentDidMount() {
         this.setUserState('learning');
-        this.setUserState('sharing');
+        this.setUserState('sharing', this.props.isLastUserToLoad);
     }
 
     render() {
@@ -46,7 +49,7 @@ class User extends Component {
                         <h1>{username}</h1>
                         <div>
                             <Button bsSize="small">
-                                <i className="fa fa-commenting fa-lg"></i>
+                                <span className="icon-commenting-o"></span>
                             </Button>
                         </div>
                     </div>

@@ -73,6 +73,46 @@ class Header extends Component {
         )
     }
 
+    getNav = () => {
+        const { loadContent, isLoginView } = this.props;
+        if (isLoginView) {
+            const buttonStyle = {
+                display: loadContent ? 'block' : 'none',
+            };
+            return (
+                <div style={buttonStyle}>
+                    <Navbar.Collapse>
+                        <Navbar.Form pullRight>
+                            <div className="g-signin2" data-onsuccess="onSignIn"/>
+                        </Navbar.Form>
+                    </Navbar.Collapse>
+                </div>
+            )
+        }
+        return (
+            <Navbar.Collapse>
+                <Nav pullRight>
+                    {this.state.width > 768 ?
+                    (<NavDropdown
+                        title={
+                            <Image
+                                id='user-image'
+                                src="/assets/thumbnail.png"
+                                circle
+                            />}
+                        noCaret id="dropdown-no-caret">
+                        <MenuItem href="#" onSelect={this.onSignOut}>
+                            Sign out
+                        </MenuItem>
+                    </NavDropdown>) :
+                    (<NavItem href="#" onSelect={this.onSignOut}>
+                        Sign out
+                    </NavItem>)}
+                </Nav>
+            </Navbar.Collapse>
+        )
+    }
+
     render() {
         return (
             <Navbar

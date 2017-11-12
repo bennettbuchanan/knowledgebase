@@ -20,15 +20,8 @@ function webpackConfig() {
                     ],
                 },
                 {
-                    test: /.css$/,
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                cacheDirectory: true,
-                            },
-                        },
-                    ],
+                    test: /\.css$/,
+                    use: ['style-loader', 'css-loader'],
                 },
             ],
         },

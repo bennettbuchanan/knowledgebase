@@ -22,6 +22,7 @@ class SelectionModalGroup extends Component {
                     onPressEnterShare={this.props.onPressEnterShare}
                     tagList={tagList}
                     errorMessage={this.props.errorMessage}
+                    fetchingFromAPI={this.props.fetchingFromAPI}
                 />
                 <SelectionModalList
                     tagList={tagList}
