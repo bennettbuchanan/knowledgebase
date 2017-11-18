@@ -26,6 +26,17 @@ class User extends Table {
     }
 
     /**
+     * Set the image of the user.
+     * @param {String} image - The image path of the user.
+     * @return {User} Instance of the User class.
+     */
+
+    setImage(image) {
+        this.image = image;
+        return this;
+    }
+
+    /**
      * Set the email of the user.
      * @param {String} email - The email of the user.
      * @return {User} Instance of the User class.
@@ -48,9 +59,11 @@ class User extends Table {
         const query =
             `INSERT INTO user (first_name,
                                last_name,
+                               image,
                                email)
             VALUES            ('${this.firstName}',
                                '${this.lastName}',
+                               '${this.image}',
                                '${this.email}');`;
         return this.db.query(query, this.log, cb);
     }

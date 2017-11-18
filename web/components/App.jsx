@@ -46,7 +46,11 @@ class App extends Component {
     });
 
     signOut = () => {
-        this.setState({ isUserSignedIn: false });
+        this.setState({
+            isUserSignedIn: false,
+            isUserInDatabase: null,
+            showModal: true,
+        });
         const { gapi } = this.state;
         const auth = gapi.auth2.getAuthInstance();
         // We need to rerender the resources when the sign in page is viewed.
@@ -158,7 +162,6 @@ class App extends Component {
                     return this.setState({ error: err });
                 }
                 this.setState({
-                    error: err,
                     isUserInDatabase: data.length > 0,
                     loadingContent: false,
                 });
@@ -211,13 +214,14 @@ class App extends Component {
     }
 
     render() {
-        const { isUserSignedIn } = this.state;
+        const { isUserSignedIn, profile } = this.state;
         return (
             <div>
                 <Header
                     isLoginView={!isUserSignedIn}
                     onSignOut={this.signOut}
                     onSignIn={this.signIn}
+                    userImage={profile && profile.getImageUrl()}
                 />
                 {this.getContent()}
             </div>

@@ -10,6 +10,7 @@ function user() {
             qs: {
                 firstName: 'a',
                 lastName: 'b',
+                image: 'c',
                 email: 'a@null.com',
             },
         };
@@ -39,6 +40,7 @@ function user() {
                 qs: {
                     firstName: 'a',
                     lastName: 'b',
+                    image: 'c',
                     email: 'a@null.com',
                 },
             };
@@ -51,6 +53,7 @@ function user() {
                 qs: {
                     firstName: 'a',
                     lastName: 'b',
+                    image: 'c',
                     email: 'a@null.com',
                 },
             };
@@ -81,6 +84,7 @@ function user() {
                     id: 1,
                     first_name: 'a',
                     last_name: 'b',
+                    image: 'c',
                     email: 'a@null.com',
                 });
                 return done();
@@ -102,6 +106,7 @@ function user() {
                         id: 1,
                         first_name: 'a',
                         last_name: 'b',
+                        image: 'c',
                         email: 'a@null.com',
                     });
                     return done();

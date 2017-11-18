@@ -60,7 +60,7 @@ class Share extends Table {
             method: 'Share::getAllUsers',
         });
         const query =
-            `SELECT id, first_name, last_name, email FROM user
+            `SELECT id, first_name, last_name, image, email FROM user
             WHERE id IN (SELECT user_id
                          FROM share
                          WHERE tech_id = ${this.techId});`;
