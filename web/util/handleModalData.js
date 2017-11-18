@@ -7,6 +7,7 @@ function handleModalData(learnTags, shareTags, googleProfile, cb) {
     const query = {
         firstName: name[0],
         lastName: name[1],
+        image: googleProfile.getImageUrl(),
         email: googleProfile.getEmail(),
     };
     let userId;

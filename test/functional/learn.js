@@ -82,6 +82,7 @@ function learn() {
                         qs: {
                             firstName: user,
                             lastName: user,
+                            image: user,
                             email: `${user}@null.com`,
                         },
                     };
@@ -122,16 +123,19 @@ function learn() {
                         id: 1,
                         first_name: 'a',
                         last_name: 'a',
+                        image: 'a',
                         email: 'a@null.com',
                     }, {
                         id: 2,
                         first_name: 'b',
                         last_name: 'b',
+                        image: 'b',
                         email: 'b@null.com',
                     }, {
                         id: 3,
                         first_name: 'c',
                         last_name: 'c',
+                        image: 'c',
                         email: 'c@null.com',
                     },
                 ]);

@@ -41,6 +41,7 @@ class List extends Component {
                             isLastUserToLoad={users.length === i + 1}
                             onDoneLoading={this.onDoneLoading}
                             username={user.first_name}
+                            image={user.image}
                             errorHandler={this.props.errorHandler}
                         />
                     </Col>

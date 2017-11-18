@@ -35,14 +35,18 @@ class User extends Component {
     }
 
     render() {
-        const { id, username } = this.props;
+        const { id, username, image } = this.props;
         this.state.id = id;
 
         return (
             <Panel>
                 <div>
-                    <Image src="/assets/thumbnail.png" className={'user-image'}
-                        circle responsive />
+                    <Image
+                        src={image}
+                        className={'user-image'}
+                        circle
+                        responsive
+                    />
                 </div>
                 <div className={'user-content'}>
                     <div className={'user-name-section'}>

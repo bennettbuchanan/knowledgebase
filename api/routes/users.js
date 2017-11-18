@@ -39,9 +39,15 @@ function users(app, log) {
 
     app.post('/users', (req, res) => {
         log.debug('creating new user');
-        const { firstName, lastName, email } = req.query;
+        const {
+            firstName,
+            lastName,
+            image,
+            email,
+        } = req.query;
         userModel.setFirstName(firstName)
             .setLastName(lastName)
+            .setImage(image)
             .setEmail(email)
             .create((err, data) => {
                 if (err) {

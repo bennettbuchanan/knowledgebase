@@ -60,7 +60,7 @@ class Learn extends Table {
             method: 'Learn::getAllUsers',
         });
         const query =
-            `SELECT id, first_name, last_name, email FROM user
+            `SELECT id, first_name, last_name, image, email FROM user
             WHERE id IN (SELECT user_id
                          FROM learn
                          WHERE tech_id = ${this.techId});`;

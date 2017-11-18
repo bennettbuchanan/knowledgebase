@@ -18,6 +18,11 @@ function up(db, cb) {
             type: 'string',
             notNull: true,
         },
+        image: {
+            type: 'string',
+            unique: true,
+            notNull: true,
+        },
         email: {
             type: 'string',
             unique: true,
