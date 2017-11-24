@@ -8,7 +8,13 @@ class SelectionModalButton extends Component {
 
     render() {
         return (
-            <Button id={'modal-button'} onClick={this.props.onClick}>Done</Button>
+            <Button
+                bsSize="large"
+                block
+                onClick={this.props.onClick}
+            >
+                Done
+            </Button>
         );
     }
 }

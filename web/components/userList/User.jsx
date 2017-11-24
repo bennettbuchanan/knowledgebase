@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Image, Panel, Button,
-    Glyphicon } from 'react-bootstrap/lib';
+import { Grid, Row, Col, Image, Panel, Button } from 'react-bootstrap/lib';
 import usersAPI from '../../util/api/usersAPI';
 
 /**
@@ -9,23 +8,23 @@ import usersAPI from '../../util/api/usersAPI';
 class User extends Component {
     state = {
         id: '',
-        learning: '',
-        sharing: '',
+        learning: [],
+        sharing: [],
         error: null,
     }
 
     setUserState(key, isLastUserToLoad) {
-        usersAPI[key](this.state.id, (err, data) => {
+        usersAPI[key](this.props.id, (err, data) => {
             if (err) {
                 return this.props.errorHandler(err);
             }
             const tech = data.map(t => t.name);
-            const o = {};
-            o[key] = tech.join(', ');
             if (isLastUserToLoad) {
                 this.props.onDoneLoading();
             }
-            this.setState(o);
+            const stateToSet = {};
+            stateToSet[key] = tech;
+            this.setState(stateToSet);
         });
     }
 
@@ -34,40 +33,59 @@ class User extends Component {
         this.setUserState('sharing', this.props.isLastUserToLoad);
     }
 
+    renderTag = (text, i) => {
+        return (
+            <div
+                className={'tag-container'}
+                style={{width: 'fit-content'}}
+                key={i}
+            >
+                <div id={'tag-text'}>
+                    {text}
+                </div>
+            </div>
+        );
+    };
+
     render() {
-        const { id, username, image } = this.props;
-        this.state.id = id;
+        const { name, image } = this.props;
+        const { learning, sharing } = this.state;
 
         return (
             <Panel>
-                <div>
+                <div className={'user-image-section'}>
                     <Image
                         src={image}
                         className={'user-image'}
                         circle
                         responsive
                     />
+                    <span style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '15px',
+                        fontSize: '2.7em',
+                    }} className="icon-bubbles"></span>
                 </div>
                 <div className={'user-content'}>
                     <div className={'user-name-section'}>
-                        <h1>{username}</h1>
-                        <div>
-                            <Button bsSize="small">
-                                <span className="icon-commenting-o"></span>
-                            </Button>
-                        </div>
+                        <h1>{name}</h1>
                     </div>
                     <div className={'user-preferences-section'}>
-                    {this.state.learning && (
+                    {learning.length > 0 && (
                         <div>
                             <h2>Learning</h2>
-                            <p>{this.state.learning}</p>
+                            <div id={'tags'}>
+                                {learning.map(this.renderTag)}
+                            </div>
                         </div>
                     )}
-                    {this.state.sharing && (
+                    {sharing.length > 0 && (
                         <div>
                             <h2>Sharing</h2>
-                            <p>{this.state.sharing}</p>
+                            <div id={'tags'}>
+                                {sharing.map(this.renderTag)}
+                            </div>
                         </div>
                     )}
                     </div>
