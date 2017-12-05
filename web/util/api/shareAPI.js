@@ -13,6 +13,15 @@ const shareAPI = {
     add(query, cb) {
         return routeRequest('POST', `${getAPIURL()}/share`, query, cb);
     },
+
+    /**
+     * List all the users that want to share a technology.
+     * @param {Function} cb - The callback function.
+     * @return {undefined}
+     */
+    getAllUsers(id, cb) {
+        return routeRequest('GET', `${getAPIURL()}/share/${id}/users`, {}, cb);
+    },
 };
 
 export default shareAPI;

@@ -13,6 +13,21 @@ const usersAPI = {
     },
 
     /**
+     * Get the user's ID using their email.
+     * @param {String} email - The user's email.
+     * @param {Function} cb - The callback function.
+     * @return {undefined}
+     */
+    getUserId(email, cb) {
+        this.getUser(email, (err, result) => {
+            if (err) {
+                return cb(err);
+            }
+            return cb(null, result[0].id);
+        });
+    },
+
+    /**
      * Get all users.
      * @param {Function} cb - The callback function.
      * @return {undefined}

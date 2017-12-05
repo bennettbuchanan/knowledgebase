@@ -205,6 +205,7 @@ class App extends Component {
                 </div>
                 <div style={listStyle}>
                     <List
+                        profile={this.state.profile}
                         errorHandler={this.errorHandler}
                         onDoneLoading={this.onDoneLoading}
                     />
