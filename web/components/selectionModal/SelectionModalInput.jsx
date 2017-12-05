@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Spinner from 'react-spinkit';
-import { FormGroup, ControlLabel, FormControl,
-    HelpBlock } from 'react-bootstrap/lib';
+import { FormGroup, ControlLabel, FormControl, InputGroup, Button, HelpBlock }
+    from 'react-bootstrap/lib';
 
 /**
  * The input for how the user wants to participate.
@@ -13,18 +13,14 @@ class SelectionModalInput extends Component {
         validationState: null,
     }
 
-    handleChange = (e) => this.setState({ value: e.target.value });
-
-    handleKeyPress = (e) => {
-        const { category, onPressKey } = this.props;
-        onPressKey(category);
-        this.setState({
-            validationState: null,
-            errorMessage: ''
-        });
-        if (e.key !== 'Enter') {
+    handleChange = (e) => {
+        if (e.target.value.includes(',')) {
             return undefined;
         }
+        this.setState({ value: e.target.value });
+    }
+
+    addTag = () => {
         const { value } = this.state;
         const { tags } = this.props;
 
@@ -38,11 +34,27 @@ class SelectionModalInput extends Component {
         if (tags.includes(value)) {
             return this.setState({
                 errorMessage: `Technology '${value}' already added.`,
-                value: ''
             });
         }
-        this.props.onPressEnter(value, category);
+        this.props.onPressEnter(value, this.props.category);
         this.setState({ value: '' });
+    }
+
+    onClickAdd = () => {
+        this.addTag();
+    }
+
+    handleKeyPress = (e) => {
+        const { category, onPressKey } = this.props;
+        onPressKey(category);
+        this.setState({
+            validationState: null,
+            errorMessage: ''
+        });
+        if (e.key !== 'Enter' && e.key !== ',') {
+            return undefined;
+        }
+        this.addTag();
     };
 
     getValidationState() {
@@ -53,7 +65,7 @@ class SelectionModalInput extends Component {
     getModalContent() {
         const { value } = this.state;
         const spinnerStyle = {
-            display: this.props.fetchingFromAPI ? 'block' : 'none',
+            opacity: this.props.fetchingFromAPI ? '100' : '0',
             marginLeft: '5px',
         };
 
@@ -65,13 +77,20 @@ class SelectionModalInput extends Component {
                         <Spinner name="circle" />
                     </div>
                 </div>
-                <FormControl
-                    type='text'
-                    value={this.state.value}
-                    placeholder='Ex: python, javascript, c'
-                    onChange={this.handleChange}
-                    onKeyPress={this.handleKeyPress}/>
-                <FormControl.Feedback />
+                <InputGroup>
+                    <FormControl
+                        type='text'
+                        value={this.state.value}
+                        placeholder='e.g. javascript, python, ruby-on-rails'
+                        onChange={this.handleChange}
+                        onKeyPress={this.handleKeyPress}/>
+                    <FormControl.Feedback />
+                        <InputGroup.Button onClick={this.onClickAdd}>
+                            <Button>
+                                Add
+                            </Button>
+                        </InputGroup.Button>
+                </InputGroup>
                 <HelpBlock id={'help-block'}>
                     {this.props.errorMessage || this.state.errorMessage}
                 </HelpBlock>
@@ -83,5 +102,11 @@ class SelectionModalInput extends Component {
         return (this.getModalContent());
     }
 }
+
+//     <InputGroup.Button onClick={this.onClickAdd}>
+//         <Button>
+//             Add
+//         </Button>
+//     </InputGroup.Button>
 
 export default SelectionModalInput;

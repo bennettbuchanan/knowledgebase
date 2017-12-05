@@ -11,7 +11,7 @@ class SignUp extends Component {
             <div id='google-authentication'>
                 <Jumbotron>
                     <h1>{'Sign Up'}</h1>
-                    <p>Join Knowledge Base today.</p>
+                    <p>Join knowledgebase today.</p>
                     <SignUpButton errorHandler={this.props.errorHandler}/>
                 </Jumbotron>
             </div>

@@ -1,5 +1,13 @@
+.panel {
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,.25);
+}
+
 .panel-body {
     display: flex;
+}
+
+.user-preferences-section > div > h2 {
+    /*margin-top: 0px;*/
 }
 
 .user-content {
@@ -9,9 +17,12 @@
     padding-left: 15px;
 }
 
+div.user-name-section {
+    margin: 0px;
+}
+
 div.user-name-section > h1 {
     margin: 0px;
-    padding-right: 15px;
 }
 
 div.user-name-section > div {
@@ -26,6 +37,12 @@ div.user-name-section > div {
 
 .user-preferences-section > div {
     width: 50%;
+    padding: 0px 20px 0px 20px;
+}
+
+#tags {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .user-image {
@@ -38,14 +55,36 @@ div.user-name-section > div {
     margin-top: 20px;
 }
 
+.user-image-section {
+    display: flex;
+    flex-direction: column;
+}
+
 @media only screen and (max-width: 500px) {
     .panel-body {
         flex-direction: column;
+    }
+
+    .user-image-section {
+        flex-direction: row;
+        padding-bottom: 15px;
+    }
+
+    .user-image-section > img {
+        margin-right: 15px;
+    }
+
+    .user-content {
+        padding: 0px;
     }
 }
 
 @media only screen and (max-width: 400px) {
     .user-preferences-section {
         flex-direction: column;
+    }
+
+    .user-preferences-section > div {
+        width: 100%;
     }
 }
