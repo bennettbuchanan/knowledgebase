@@ -22,6 +22,7 @@ class UserTab extends Component {
                     isLastUserToLoad={users.length === i + 1}
                     onDoneLoading={this.props.onDoneLoading}
                     name={`${user.first_name} ${user.last_name}`}
+                    email={user.email}
                     image={user.image}
                     errorHandler={this.props.errorHandler}
                 />

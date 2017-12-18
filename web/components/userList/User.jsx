@@ -56,7 +56,7 @@ class User extends Component {
     }
 
     render() {
-        const { name, image } = this.props;
+        const { name, image, email } = this.props;
         const { learning, sharing } = this.state;
 
         return (
@@ -68,12 +68,13 @@ class User extends Component {
                         circle
                         responsive
                     />
-                    <span style={{
+                <a href={`mailto:${email}`}
+                    style={{
                         display: 'flex',
                         justifyContent: 'center',
                         marginTop: '15px',
                         fontSize: '2.7em',
-                    }} className="icon-bubbles"></span>
+                    }} className="icon-bubbles"></a>
                 </div>
                 <div className={'user-content'}>
                     <div className={'user-name-section'}>
