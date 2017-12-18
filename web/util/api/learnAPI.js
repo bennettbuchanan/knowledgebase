@@ -13,6 +13,15 @@ const learnAPI = {
     add(query, cb) {
         return routeRequest('POST', `${getAPIURL()}/learn`, query, cb);
     },
+
+    /**
+     * List all the users that want to learn a technology.
+     * @param {Function} cb - The callback function.
+     * @return {undefined}
+     */
+    getAllUsers(id, cb) {
+        return routeRequest('GET', `${getAPIURL()}/learn/${id}/users`, {}, cb);
+    },
 };
 
 export default learnAPI;

@@ -6,3 +6,22 @@ body h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     font-family: 'Hind Madurai', sans-serif;
 }
+
+/*
+Prevent jumping scrollbar issue when navigating from one view with a scrollbar
+to another without it.
+*/
+html {
+    margin-left: calc(100vw - 100%);
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .3);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}

@@ -108,7 +108,7 @@
     }
 }
 
-@media only screen and (min-width: 438px) {
+@media only screen and (min-width: 453px) {
     #knowledgebase-info-list #icons .icon-lightbulb-o {
         padding-bottom: 12px;
     }
@@ -120,7 +120,7 @@
 
 @media only screen and (max-width: 437px) {
     #knowledgebase-info-list #icons .icon-lightbulb-o {
-        padding-bottom: 36px;
+        padding-bottom: 37px;
     }
 }
 

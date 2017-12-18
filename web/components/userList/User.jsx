@@ -47,6 +47,14 @@ class User extends Component {
         );
     };
 
+    getPreferencesStyle = (type) => {
+        const { learning, sharing } = this.state;
+        if (type === 'learning') {
+            return { width: sharing.length > 0 ? '50%' : '100%' };
+        }
+        return { width: learning.length > 0 ? '50%' : '100%' };
+    }
+
     render() {
         const { name, image } = this.props;
         const { learning, sharing } = this.state;
@@ -69,20 +77,20 @@ class User extends Component {
                 </div>
                 <div className={'user-content'}>
                     <div className={'user-name-section'}>
-                        <h1>{name}</h1>
+                        <h2>{name}</h2>
                     </div>
                     <div className={'user-preferences-section'}>
                     {learning.length > 0 && (
-                        <div>
-                            <h2>Learning</h2>
+                        <div style={this.getPreferencesStyle('learning')}>
+                            <h3>Learning</h3>
                             <div id={'tags'}>
                                 {learning.map(this.renderTag)}
                             </div>
                         </div>
                     )}
                     {sharing.length > 0 && (
-                        <div>
-                            <h2>Sharing</h2>
+                        <div style={this.getPreferencesStyle('sharing')}>
+                            <h3>Sharing</h3>
                             <div id={'tags'}>
                                 {sharing.map(this.renderTag)}
                             </div>
