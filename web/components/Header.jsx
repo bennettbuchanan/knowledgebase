@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, MenuItem, Form, FormGroup, ControlLabel,
     FormControl, Button, Image, NavItem } from 'react-bootstrap/lib';
-import cylinderIcon from '../assets/cylinder_icon.png';
+import cylinder from '../assets/cylinder.png';
 
 /**
  * Navigation component of the application.
@@ -85,7 +85,10 @@ class Header extends Component {
                     <Navbar.Brand>
                         <div style={{paddingTop: '8px', display: 'flex'}}>
                             <a href="">
-                                <img id='header-icon' src={cylinderIcon} alt="cylinderIcon"/>
+                                <img id='header-icon'
+                                    src={cylinder}
+                                    alt="cylinder"
+                                />
                             </a>
                             <a id='header-text' href="">knowledgebase</a>
                         </div>

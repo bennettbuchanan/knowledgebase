@@ -18,7 +18,7 @@ Start the mysql server:
 mysql.server start
 ```
 
-Initiate the development database:
+Initiate the database:
 
 ```sh
 yarn init:dev
@@ -39,7 +39,7 @@ yarn start_api:dev
 Build sources with webpack:
 
 ```sh
-yarn build
+yarn build:dev
 ```
 
 Run the development server:
@@ -66,4 +66,18 @@ Run unit and functional tests:
 
 ```sh
 NODE_ENV=test yarn test
+```
+
+## Deployment
+
+Deploy either the api or web bundle to a Heroku dyno:
+
+```
+chmod +x ./deploy.bash && ./deploy.bash help
+```
+
+For example, to deploy the web project:
+
+```
+./deploy.bash web nameless-citadel-98211
 ```

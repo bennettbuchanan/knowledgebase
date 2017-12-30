@@ -11,8 +11,9 @@
   },
   "prod": {
     "driver": "mysql",
+    "host": {"ENV": "MYSQL_HOST"},
     "user": {"ENV": "MYSQL_USERNAME"},
     "password": {"ENV": "MYSQL_PASSWORD"},
-    "database": "knowledgebase"
+    "database": {"ENV": "MYSQL_DB"}
   }
 }
