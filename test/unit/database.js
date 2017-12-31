@@ -11,8 +11,6 @@ describe('Database class', () => {
         db = getDatabase();
     });
 
-    afterEach(() => db.endConnection());
-
     it('should get instance of Database class', () => {
         assert.strictEqual(typeof db, 'object');
         assert.strictEqual(db.name, 'knowledgebase_test');

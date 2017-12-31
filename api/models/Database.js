@@ -1,26 +1,10 @@
+const getConnection = require('../util/getConnection');
+
 /**
  * @class Database
  * Handles MySQL generic database actions.
  */
 class Database {
-    /**
-     * Set the MySQL database connection.
-     * @param {Object} connection - The MySQL connection to run queries with.
-     */
-    setConnection(connection) {
-        this.connection = connection;
-        return this;
-    }
-
-    /**
-     * End the MySQL database connection.
-     * @param {Database} - Instance of the Database class.
-     */
-    endConnection() {
-        this.connection.end();
-        return this;
-    }
-
     /**
      * Set the name of the database to use.
      * @param {String} name - The name of the database to use.
@@ -50,7 +34,11 @@ class Database {
         log.debug('running MySQL query', {
             method: 'Database::query',
         });
-        return this.connection.query(query, cb);
+        this.connection = getConnection();
+        // Every method on a connection is queued and executed in sequence.
+        this.connection.connect();
+        this.connection.query(query, cb);
+        this.connection.end();
     }
 }
 
