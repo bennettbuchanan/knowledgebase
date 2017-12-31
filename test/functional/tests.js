@@ -21,7 +21,6 @@ function clearTables(cb) {
 describe('Routes and database functionality', () => {
     beforeEach(done => clearTables(done));
     afterEach(done => clearTables(done));
-    after(() => db.endConnection());
 
     describe('Users tests', () => userTests());
     describe('Tech tests', () => techTests());
