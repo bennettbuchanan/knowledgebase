@@ -35,6 +35,8 @@ class Database {
             method: 'Database::query',
         });
         this.connection = getConnection();
+        this.connection.on('error', err =>
+            log.error('MySQL connection error has occurred', { error: err }));
         // Every method on a connection is queued and executed in sequence.
         this.connection.connect();
         this.connection.query(query, cb);
