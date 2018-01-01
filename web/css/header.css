@@ -13,3 +13,15 @@
     -o-transition: height 0.1s;
     transition: height 0.1s;
 }
+
+#header-icon {
+    width: 27px;
+}
+
+#header-text {
+    padding-left: 8px;
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: #777;
+    text-decoration: none;
+}

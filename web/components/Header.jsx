@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, MenuItem, Form, FormGroup, ControlLabel,
     FormControl, Button, Image, NavItem } from 'react-bootstrap/lib';
+import cylinderIcon from '../assets/cylinder_icon.png';
 
 /**
  * Navigation component of the application.
@@ -61,11 +62,11 @@ class Header extends Component {
                                 circle
                             />}
                         noCaret id="dropdown-no-caret">
-                        <MenuItem href="#" onSelect={this.onSignOut}>
+                        <MenuItem href="" onSelect={this.onSignOut}>
                             Sign out
                         </MenuItem>
                     </NavDropdown>) :
-                    (<NavItem href="#" onSelect={this.onSignOut}>
+                    (<NavItem href="" onSelect={this.onSignOut}>
                         Sign out
                     </NavItem>)}
                 </Nav>
@@ -82,7 +83,12 @@ class Header extends Component {
             >
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="#">knowledgebase</a>
+                        <div style={{paddingTop: '8px', display: 'flex'}}>
+                            <a href="">
+                                <img id='header-icon' src={cylinderIcon} alt="cylinderIcon"/>
+                            </a>
+                            <a id='header-text' href="">knowledgebase</a>
+                        </div>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
