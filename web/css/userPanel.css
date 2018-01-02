@@ -10,14 +10,28 @@
     margin-top: 0px;
 }
 
+.user-preferences-section > div > h3 {
+    margin-top: 15px;
+}
+
 .user-content {
-    display: flex;
     flex-direction: column;
     width: 100%;
     padding-left: 15px;
     /* TODO: Eventually remove scroll behavior in favor of masonry layout. */
     max-height: 128px;
     overflow-y: scroll;
+}
+
+.user-content::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 5px;
+}
+
+.user-content::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .3);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
 div.user-name-section {
@@ -39,7 +53,7 @@ div.user-name-section > div {
 }
 
 .user-preferences-section > div {
-    padding: 0px 20px 0px 20px;
+    padding: 0px 15px 0px 15px;
 }
 
 #tags {
@@ -50,6 +64,10 @@ div.user-name-section > div {
 .user-image {
     max-width: 75px;
     max-height: 75px;
+}
+
+a.icon-bubbles {
+    color: #333;
 }
 
 .user-name-section {
@@ -82,15 +100,8 @@ div.user-name-section > div {
     .user-image-section > img {
         margin-right: 15px;
     }
-}
 
-@media only screen and (max-width: 400px) {
-    .user-preferences-section {
-        flex-direction: column;
-    }
-
-    .user-preferences-section > div {
-        /* Add !important to override React condition for small view. */
-        width: 100% !important;
+    .user-content {
+        padding-left: 0px;
     }
 }
