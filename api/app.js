@@ -6,6 +6,8 @@ const tech = require('./routes/tech');
 const learn = require('./routes/learn');
 const share = require('./routes/share');
 
+const port = process.env.PORT || 3000;
+
 const app = express();
 const log = Logger.newRequestLogger();
 
@@ -16,5 +18,5 @@ tech(app, log);
 learn(app, log);
 share(app, log);
 
-app.listen(3000, () =>
-    log.info('application started successfully on port 3000'));
+app.listen(port, () =>
+    log.info(`application started successfully on port ${port}`));
