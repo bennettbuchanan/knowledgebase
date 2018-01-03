@@ -19,7 +19,7 @@
     width: 100%;
     padding-left: 15px;
     /* TODO: Eventually remove scroll behavior in favor of masonry layout. */
-    max-height: 128px;
+    max-height: 127px;
     overflow-y: scroll;
 }
 
