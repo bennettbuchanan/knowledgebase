@@ -4,8 +4,10 @@ import { Alert, Grid } from 'react-bootstrap/lib';
 import Header from './Header.jsx';
 import List from './userList/List.jsx';
 import SelectionModal from './selectionModal/SelectionModal.jsx';
+import ProfileSettings from './profileSettings/SelectionModal.jsx';
 import Login from './login/Login.jsx';
-import handleModalData from '../util/handleModalData.js';
+import { handleModalData, handleModalDataUpdate }
+    from '../util/handleModalData.js';
 import usersAPI from '../util/api/usersAPI.js';
 
 const CLIENT_ID = '200156518240-7qlrk60340sikfo2dqfhao56omfq49pk' +
@@ -17,6 +19,7 @@ const CLIENT_ID = '200156518240-7qlrk60340sikfo2dqfhao56omfq49pk' +
 class App extends Component {
     state = {
         showModal: true,
+        showProfileSettings: false,
         isUserSignedIn: false,
         isUserInDatabase: null,
         error: null,
@@ -56,6 +59,10 @@ class App extends Component {
         // We need to rerender the resources when the sign in page is viewed.
         auth.signOut().then(() => this.loadGoogleAPI(this.renderButtons));
     };
+
+    updateProfile = () => {
+        this.setState({ showProfileSettings: true });
+    }
 
     loadGoogleAPI = (action) => gapi.load('auth2', () =>
         gapi.auth2.init({ client_id: CLIENT_ID }).then(() => {
@@ -100,6 +107,19 @@ class App extends Component {
         });
     }
 
+    handleModalDataUpdate = (tags, userId, err) => {
+        handleModalDataUpdate(tags, userId, err => {
+            if (err) {
+                this.setState({
+                    error: err,
+                    errorMessage: 'Please try again later.',
+                    loadingContent: false,
+                });
+            }
+            this.setState({ showProfileSettings: false });
+        });
+    }
+
     errorHandler = (err) => {
         // If the user closes the google auth window, do not show an error.
         if (err && err.error === 'popup_closed_by_user') {
@@ -129,7 +149,8 @@ class App extends Component {
 
     getContent() {
         const { error, errorMessage, isUserSignedIn, isUserInDatabase,
-            showModal, profile, loadingContent } = this.state;
+            showModal, showProfileSettings, profile,
+            loadingContent } = this.state;
 
         if (error) {
             return this.getError(error, errorMessage);
@@ -166,6 +187,14 @@ class App extends Component {
                     loadingContent: false,
                 });
             });
+        }
+        if (showProfileSettings) {
+            return (
+                <ProfileSettings
+                    onClose={this.handleModalDataUpdate}
+                    profile={profile}
+                />
+            )
         }
         if (!isUserInDatabase && showModal) {
             const modalStyle = {
@@ -220,6 +249,7 @@ class App extends Component {
             <div>
                 <Header
                     isLoginView={!isUserSignedIn}
+                    onUpdateProfile={this.updateProfile}
                     onSignOut={this.signOut}
                     onSignIn={this.signIn}
                     userImage={profile && profile.getImageUrl()}

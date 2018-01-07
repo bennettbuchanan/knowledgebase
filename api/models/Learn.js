@@ -55,6 +55,26 @@ class Learn extends Table {
         return this.db.query(query, this.log, cb);
     }
 
+    /**
+     * Get ID from a learn table entry.
+     * @param {Function} cb - Callback function.
+     * @return {undefined}
+     */
+    getLearnId(cb) {
+        this.log.debug('getting learn id', {
+            method: 'Learn::getLearnId',
+        });
+        const query =
+            `SELECT id FROM learn
+            WHERE user_id = ${this.userId} AND tech_id = ${this.techId};`;
+        return this.db.query(query, this.log, cb);
+    }
+
+    /**
+     * Get all users learning a technology.
+     * @param {Function} cb - Callback function.
+     * @return {undefined}
+     */
     getAllUsers(cb) {
         this.log.debug('getting all users learning a tech in database', {
             method: 'Learn::getAllUsers',

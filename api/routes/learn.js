@@ -28,6 +28,25 @@ function learn(app, log) {
             });
     });
 
+    app.get('/learn', (req, res) => {
+        log.debug('getting id of learn entry');
+        const { userId, techId } = req.query;
+        learnModel.setUserId(userId)
+            .setTechId(techId)
+            .getLearnId((err, data) => {
+                if (err) {
+                    log.error('error getting id of learn entry', {
+                        error: err,
+                        params: req.params,
+                    });
+                    return res.status(500).send('Could not get a learn ' +
+                        'learn entry. Please try again later.');
+                }
+                log.info('retrieved learn entry id');
+                return res.send(data);
+            });
+    });
+
     app.delete('/learn/:id', (req, res) => {
         log.debug('deleting learn entry');
         const { id } = req.params;

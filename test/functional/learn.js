@@ -43,6 +43,24 @@ function learn() {
             request.post(options, done);
         });
 
+        it('should get a learn entry id', (done) => {
+            const options = {
+                uri: 'http://localhost:3000/learn',
+                qs: {
+                    userId: 1,
+                    techId: 1,
+                },
+            };
+            request.get(options, (err, response, body) => {
+                if (err) {
+                    return done(err);
+                }
+                assert.strictEqual(response.statusCode, 200);
+                assert.deepStrictEqual(parseJSON(body), [{ id: 1 }]);
+                return done();
+            });
+        });
+
         it('should delete a learn entry', done =>
             request.delete('http://localhost:3000/learn/1',
                 (err, response, body) => {

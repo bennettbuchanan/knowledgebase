@@ -18,6 +18,8 @@ class Header extends Component {
 
     onSignOut = () => this.props.onSignOut();
 
+    onUpdateProfile = () => this.props.onUpdateProfile();
+
     // Needed for small width, as we want to collapse the nav on sign in.
     onToggle = (isExpanded) => this.setState({ expanded: isExpanded });
 
@@ -52,9 +54,9 @@ class Header extends Component {
         }
         return (
             <Navbar.Collapse>
+                {width > 768 ? (
                 <Nav pullRight>
-                    {width > 768 ?
-                    (<NavDropdown
+                    <NavDropdown
                         title={
                             <Image
                                 id='user-image'
@@ -62,14 +64,22 @@ class Header extends Component {
                                 circle
                             />}
                         noCaret id="dropdown-no-caret">
+                        <MenuItem href="" onSelect={this.onUpdateProfile}>
+                            Profile
+                        </MenuItem>
                         <MenuItem href="" onSelect={this.onSignOut}>
                             Sign out
                         </MenuItem>
-                    </NavDropdown>) :
-                    (<NavItem href="" onSelect={this.onSignOut}>
+                    </NavDropdown>
+                </Nav>) :
+                (<Nav pullRight>
+                    <NavItem href="" onSelect={this.onUpdateProfile}>
+                        Profile
+                    </NavItem>
+                    <NavItem href="" onSelect={this.onSignOut}>
                         Sign out
-                    </NavItem>)}
-                </Nav>
+                    </NavItem>
+                </Nav>)}
             </Navbar.Collapse>
         )
     }
