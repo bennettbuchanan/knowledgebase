@@ -55,6 +55,26 @@ class Share extends Table {
         return this.db.query(query, this.log, cb);
     }
 
+    /**
+     * Get ID from a share table entry.
+     * @param {Function} cb - Callback function.
+     * @return {undefined}
+     */
+    getShareId(cb) {
+        this.log.debug('getting share id', {
+            method: 'Learn::getLearnId',
+        });
+        const query =
+            `SELECT id FROM share
+            WHERE user_id = ${this.userId} AND tech_id = ${this.techId};`;
+        return this.db.query(query, this.log, cb);
+    }
+
+    /**
+     * Get all users sharing a technology.
+     * @param {Function} cb - Callback function.
+     * @return {undefined}
+     */
     getAllUsers(cb) {
         this.log.debug('getting all users sharing a tech in database', {
             method: 'Share::getAllUsers',

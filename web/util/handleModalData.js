@@ -1,6 +1,10 @@
 import async from 'async';
 import usersAPI from './api/usersAPI';
-import handleModalTags from './handleModalTags';
+import { addTags, deleteTags } from './handleModalTags';
+
+function _filterTags(arr1, arr2) {
+    return arr1.filter(tag => !arr2.includes(tag));
+}
 
 function handleModalData(learnTags, shareTags, googleProfile, cb) {
     const name = googleProfile.getName().split(' ');
@@ -19,9 +23,32 @@ function handleModalData(learnTags, shareTags, googleProfile, cb) {
             userId = data.insertId;
             return next();
         }),
-        next => handleModalTags(learnTags, userId, 'learn', next),
-        next => handleModalTags(shareTags, userId, 'share', next),
+        next => addTags(learnTags, userId, 'learn', next),
+        next => addTags(shareTags, userId, 'share', next),
     ], cb);
 }
 
-export default handleModalData;
+function handleModalDataUpdate(tags, userId, cb) {
+    // Compare preexisitng tags with difference.
+    const {
+        preexistingLearnTags,
+        preexistingShareTags,
+        learnTags,
+        shareTags,
+    } = tags;
+    const learnTagsToAdd = _filterTags(learnTags, preexistingLearnTags);
+    const shareTagsToAdd = _filterTags(shareTags, preexistingShareTags);
+    const learnTagsToDelete = _filterTags(preexistingLearnTags, learnTags);
+    const shareTagsToDelete = _filterTags(preexistingShareTags, shareTags);
+    return async.series([
+        next => addTags(learnTagsToAdd, userId, 'learn', next),
+        next => addTags(shareTagsToAdd, userId, 'share', next),
+        next => deleteTags(learnTagsToDelete, userId, 'learn', next),
+        next => deleteTags(shareTagsToDelete, userId, 'share', next),
+    ], cb);
+}
+
+export {
+    handleModalData,
+    handleModalDataUpdate,
+};

@@ -46,6 +46,25 @@ function share(app, log) {
             });
     });
 
+    app.get('/share', (req, res) => {
+        log.debug('getting id of share entry');
+        const { userId, techId } = req.query;
+        shareModel.setUserId(userId)
+            .setTechId(techId)
+            .getShareId((err, data) => {
+                if (err) {
+                    log.error('error getting id of share entry', {
+                        error: err,
+                        params: req.params,
+                    });
+                    return res.status(500).send('Could not get a share ' +
+                        'share entry. Please try again later.');
+                }
+                log.info('retrieved share entry id');
+                return res.send(data);
+            });
+    });
+
     app.get('/share/:techId/users', (req, res) => {
         log.debug('getting all users that want to share a technology');
         const { techId } = req.params;

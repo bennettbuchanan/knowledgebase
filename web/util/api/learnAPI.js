@@ -15,6 +15,25 @@ const learnAPI = {
     },
 
     /**
+     * Deletes a technology the user wanted to learn.
+     * @param {Number} id - The id of the learn entry.
+     * @param {Function} cb - The callback function.
+     * @return {undefined}
+     */
+    delete(id, cb) {
+        return routeRequest('DELETE', `${getAPIURL()}/learn/${id}`, {}, cb);
+    },
+
+    /**
+     * Get the ID of a learn entry.
+     * @param {Function} cb - The callback function.
+     * @return {undefined}
+     */
+    getId(query, cb) {
+        return routeRequest('GET', `${getAPIURL()}/learn`, query, cb);
+    },
+
+    /**
      * List all the users that want to learn a technology.
      * @param {Function} cb - The callback function.
      * @return {undefined}

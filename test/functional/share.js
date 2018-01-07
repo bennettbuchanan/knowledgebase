@@ -43,6 +43,24 @@ function share() {
             return request.post(options, done);
         });
 
+        it('should get a share entry id', (done) => {
+            const options = {
+                uri: 'http://localhost:3000/share',
+                qs: {
+                    userId: 1,
+                    techId: 1,
+                },
+            };
+            request.get(options, (err, response, body) => {
+                if (err) {
+                    return done(err);
+                }
+                assert.strictEqual(response.statusCode, 200);
+                assert.deepStrictEqual(parseJSON(body), [{ id: 1 }]);
+                return done();
+            });
+        });
+
         it('should delete a share entry', done =>
             request.delete('http://localhost:3000/share/1',
                 (err, response, body) => {

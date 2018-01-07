@@ -15,6 +15,25 @@ const shareAPI = {
     },
 
     /**
+     * Deletes a technology the user wanted to share.
+     * @param {Number} id - The id of the share entry.
+     * @param {Function} cb - The callback function.
+     * @return {undefined}
+     */
+    delete(id, cb) {
+        return routeRequest('DELETE', `${getAPIURL()}/share/${id}`, {}, cb);
+    },
+
+    /**
+     * Get the ID of a share entry.
+     * @param {Function} cb - The callback function.
+     * @return {undefined}
+     */
+    getId(query, cb) {
+        return routeRequest('GET', `${getAPIURL()}/share`, query, cb);
+    },
+
+    /**
      * List all the users that want to share a technology.
      * @param {Function} cb - The callback function.
      * @return {undefined}
