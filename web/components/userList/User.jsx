@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Image, Panel, Button } from 'react-bootstrap/lib';
+import { Grid, Row, Col, Image, Panel, Button, Modal, Alert } from
+    'react-bootstrap/lib';
 import usersAPI from '../../util/api/usersAPI';
 
 /**
@@ -55,51 +56,83 @@ class User extends Component {
         return { width: learning.length > 0 ? '50%' : '100%' };
     }
 
+    handleShow = () => {
+        this.setState({ showModal: true });
+    }
+
+    handleClose = () => {
+        this.setState({ showModal: false });
+    }
+
     render() {
-        const { name, image, email } = this.props;
-        const { learning, sharing } = this.state;
+        const { name, image, email, isUserSignedIn } = this.props;
+        const { learning, sharing, showModal } = this.state;
 
         return (
-            <Panel>
-                <div className={'user-image-section'}>
-                    <Image
-                        src={image}
-                        className={'user-image'}
-                        circle
-                        responsive
-                    />
-                <a href={`mailto:${email}`}
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginTop: '15px',
-                        fontSize: '2.7em',
-                    }} className="icon-bubbles"></a>
-                </div>
-                <div className={'user-content'}>
-                    <div className={'user-name-section'}>
-                        <h2>{name}</h2>
+            <div>
+                <Modal show={showModal} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Please Sign In</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Alert bsStyle="info" style={{ margin: '0px' }}>
+                            Please sign in to send a message to {name}.
+                        </Alert>
+                    </Modal.Body>
+                </Modal>
+                <Panel>
+                    <div className={'user-image-section'}>
+                        <Image
+                            src={image}
+                            className={'user-image'}
+                            circle
+                            responsive
+                        />
+                    {isUserSignedIn ?
+                        (<a href={`mailto:${email}`}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                marginTop: '15px',
+                                fontSize: '2.7em',
+                            }} className="icon-bubbles">
+                        </a>) :
+                        (<a onClick={this.handleShow}
+                            style={{
+                                cursor: 'pointer',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                marginTop: '15px',
+                                fontSize: '2.7em',
+                            }} className="icon-bubbles">
+                        </a>)
+                    }
                     </div>
-                    <div className={'user-preferences-section'}>
-                    {learning.length > 0 && (
-                        <div style={this.getPreferencesStyle('learning')}>
-                            <h3>Learning</h3>
-                            <div id={'tags'}>
-                                {learning.map(this.renderTag)}
-                            </div>
+                    <div className={'user-content'}>
+                        <div className={'user-name-section'}>
+                            <h2>{name}</h2>
                         </div>
-                    )}
-                    {sharing.length > 0 && (
-                        <div style={this.getPreferencesStyle('sharing')}>
-                            <h3>Sharing</h3>
-                            <div id={'tags'}>
-                                {sharing.map(this.renderTag)}
+                        <div className={'user-preferences-section'}>
+                        {learning.length > 0 && (
+                            <div style={this.getPreferencesStyle('learning')}>
+                                <h3>Learning</h3>
+                                <div id={'tags'}>
+                                    {learning.map(this.renderTag)}
+                                </div>
                             </div>
+                        )}
+                        {sharing.length > 0 && (
+                            <div style={this.getPreferencesStyle('sharing')}>
+                                <h3>Sharing</h3>
+                                <div id={'tags'}>
+                                    {sharing.map(this.renderTag)}
+                                </div>
+                            </div>
+                        )}
                         </div>
-                    )}
                     </div>
-                </div>
-            </Panel>
+                </Panel>
+            </div>
         );
     }
 }

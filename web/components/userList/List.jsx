@@ -67,7 +67,7 @@ class List extends Component {
     }
 
     componentWillMount() {
-        const { profile } = this.props;
+        const { profile, isUserSignedIn } = this.props;
         let userId;
 
         async.waterfall([
@@ -77,9 +77,12 @@ class List extends Component {
                 this.setState({ allUsers });
                 return next();
             },
-            next => usersAPI.getUserId(profile.getEmail(), next),
-            (id, next) => this.getStateMatches('shareUsers', id, next),
-            (id, next) => this.getStateMatches('learnUsers', id, next),
+            next => isUserSignedIn ?
+                usersAPI.getUserId(profile.getEmail(), next) : next(null, null),
+            (id, next) => isUserSignedIn ?
+                this.getStateMatches('shareUsers', id, next) : next(null, null),
+            (id, next) => isUserSignedIn ?
+                this.getStateMatches('learnUsers', id, next) : next(null, null),
         ], (err) => {
             if (err) {
                 this.onDoneLoading();
@@ -125,6 +128,9 @@ class List extends Component {
                                     heading={'All people'}
                                     users={allUsers}
                                     onDoneLoading={this.onDoneLoading}
+                                    isUserSignedIn={this.props.isUserSignedIn}
+                                    renderButtons={this.props.renderButtons}
+                                    loadGoogleAPI={this.props.loadGoogleAPI}
                                     errorHandler={this.errorHandler}
                                 />
                                 <UserTab
@@ -133,6 +139,7 @@ class List extends Component {
                                     heading={'People to learn from'}
                                     users={learnUsers}
                                     onDoneLoading={this.onDoneLoading}
+                                    isUserSignedIn={this.props.isUserSignedIn}
                                     errorHandler={this.errorHandler}
                                 />
                                 <UserTab
@@ -141,6 +148,7 @@ class List extends Component {
                                     heading={'People to share with'}
                                     users={shareUsers}
                                     onDoneLoading={this.onDoneLoading}
+                                    isUserSignedIn={this.props.isUserSignedIn}
                                     errorHandler={this.errorHandler}
                                 />
                             </Tabs>

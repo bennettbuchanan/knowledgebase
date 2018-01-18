@@ -71,7 +71,7 @@ class App extends Component {
         }));
 
     renderButtons = (gapi) => {
-        gapi.signin2.render('kb-signin-large', {
+        const largeButton = {
             'scope': 'email',
             'width': 240,
             'height': 50,
@@ -79,14 +79,18 @@ class App extends Component {
             'theme': 'dark',
             'onsuccess': this.signIn,
             'onfailure': this.errorHandler,
-        });
+        };
+        // TODO: Use kb-signin-large when adding 'About' page.
+        // gapi.signin2.render('kb-signin-large', largeButton);
         gapi.signin2.render('kb-signin-small', {
             'scope': 'email',
             'width': 120,
-            'height': 36,
+            'height': 34,
             'onsuccess': this.signIn,
             'onfailure': this.errorHandler,
         });
+        gapi.signin2.render('kb-signin-large-1', largeButton);
+        gapi.signin2.render('kb-signin-large-2', largeButton);
         const googleAuth = gapi.auth2.getAuthInstance();
         googleAuth.attachClickHandler('collapsed-sign-in', {}, this.signIn,
             this.errorHandler);
@@ -155,26 +159,8 @@ class App extends Component {
         if (error) {
             return this.getError(error, errorMessage);
         }
-        // The login view condition
         if (!isUserSignedIn) {
-            const loginStyle = {
-                display: loadingContent ? 'none' : 'block',
-            };
-            const spinnerStyle = {
-                display: loadingContent ? 'block' : 'none',
-            };
-            return (
-                <div>
-                    <div id='page-load'>
-                        <div id='spinner' style={spinnerStyle}>
-                            <Spinner name="circle" />
-                        </div>
-                    </div>
-                    <div style={loginStyle}>
-                        <Login errorHandler={this.errorHandler}/>
-                    </div>
-                </div>
-            )
+
         }
         // When a user first signs in, check if the user is in the database.
         if (isUserSignedIn && isUserInDatabase === null) {
@@ -196,7 +182,7 @@ class App extends Component {
                 />
             )
         }
-        if (!isUserInDatabase && showModal) {
+        if (!isUserInDatabase && isUserSignedIn && showModal) {
             const modalStyle = {
                 display: loadingContent ? 'none' : 'block',
             };
@@ -235,6 +221,9 @@ class App extends Component {
                 <div style={listStyle}>
                     <List
                         profile={this.state.profile}
+                        isUserSignedIn={isUserSignedIn}
+                        renderButtons={this.renderButtons}
+                        loadGoogleAPI={this.loadGoogleAPI}
                         errorHandler={this.errorHandler}
                         onDoneLoading={this.onDoneLoading}
                     />
